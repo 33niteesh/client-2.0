@@ -91,6 +91,8 @@ public class ClientController {
     		ListFilter filter = (l, p) -> {
     			l=l.stream().filter(p).collect(Collectors.toList());
     	    	return l;
+			//or else
+			// List<Client> finalList = user.stream().filter(email).collect(Collectors.toList()).stream().filter(mbl).collect(Collectors.toList());
     		 };
     		 List<Client> filteredList = filter.removeElements(user,email);
     		 List<Client> finalList =filter.removeElements(user,mbl);
@@ -158,10 +160,11 @@ public class ClientController {
     		int total=user.size();
     		int end=5*pageno;
     		int start=end-5;
-    		List<Client> client = new ArrayList<>();
-    		for(int i=start;i<((end>user.size())? user.size():end);i++){
-    			client.add(user.get(i));
-    		}
+    		// List<Client> client = new ArrayList<>();
+    		// for(int i=start;i<((end>user.size())? user.size():end);i++){
+    		// 	client.add(user.get(i));
+    		// }
+		List<Client> client = user.stream().skip(end-1).limit(5).collect(Collectors.toList());
     		r.put("Status", HttpStatus.OK);
     		r.put("Status code", 200);
     		r.put("message", "Success");
